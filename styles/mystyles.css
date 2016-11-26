@@ -1,0 +1,45 @@
+* {
+  box-sizing: border-box;
+}
+.form-horizontal .control-label {
+  text-align: right;
+}
+.form-group {
+  margin-bottom: 0px;
+}
+#searchCompany {
+  border-radius: 4px;
+}
+#searchAll {
+  border-radius: 4px;
+}
+.customSideBar {
+  position: fixed;
+  height: 800px;
+  width: 227px;
+  /*width: 427px;*/
+  background: #6D7993;
+}
+.ngrs-range-slider {
+  margin-top: 2px;
+  margin-bottom: 0px;
+}
+label {
+  display: inline-block;
+  padding-left: 0;
+}
+.control-label {
+  padding-right: 0;
+}
+th {
+  text-align: center;
+  cursor: pointer;
+  cursor: hand;
+}
+td {
+  text-align: center;
+}
+i {
+  cursor: pointer;
+  cursor: hand;
+}

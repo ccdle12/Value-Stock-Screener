@@ -1,0 +1,176 @@
+<div id="sidebar" class="sidebar-offcanvas">
+    <div class="customSideBar">
+      <h3>Filters</h3>
+      <ul class="nav nav-pills nav-stacked">
+        <!--SEARCH FILTERS-->
+        <form class="form-horizontal" name="searchForm">
+        <!--SEARCH ALL-->
+        <div class="form-group">
+        <div class="col-xs-12">
+          <span class="sr-only">Search all</span>
+          <input id="searchAll" class="push-left" type="text" ng-model="all" placeholder="Search all..." aria-label="filter companies" />
+        </div>
+        </div>
+        <!--END SEARCH ALL-->
+
+        <!--SEARCH COMPANY-->
+        <div class="form-group">
+        <div class="col-xs-12">
+          <span class="sr-only">Searching by company name</span>
+          <input id="searchCompany" class="push-left" type="text" ng-model="search.company" placeholder="Company..." aria-label="filter companies" />
+        </div>
+        </div>
+        <!--END SEARCH COMPANY-->
+
+        <!-- Filter By Industry-->
+        <div class="form-group">
+        <div class="col-xs-12">
+          <span class="sr-only">Filter by Industry</span>
+          <select class="form-control" name="industries" ng-model="userFilter.Industry.sector">
+            <option value="">All</option>
+            <option ng-repeat="industry in sectors" >{{industry.sector}}</option>
+          </select>
+        </div>
+        </div>
+        <!--END Filter by Industry-->
+        <!-- END SEARCH FILTERS-->
+
+        <!-- PE-->
+        <div class="form-group">
+          <div class="col-xs-12">
+              <h4>Price to Equity</h4>
+              <div><span>Min: {{userFilter.PE.min}}   -   Max: {{userFilter.PE.max}}</span></div>
+              <div class="col-xs-12" range-slider min="minPE" max="maxPE" model-min="userFilter.PE.min" model-max="userFilter.PE.max" decimal-places="5"></div>
+          </div>
+        </div>
+        <!--END PE-->
+
+        <!-- PRICE TO BOOK SLIDER -->
+        <div class="form-group">
+          <div class="col-xs-12">
+            <h4>Price to Book </h4>
+            <div><span>Min: {{userFilter.PB.min}}</span> <span>Max: {{userFilter.PB.max}}</span></div>
+            <div class="col-xs-12" range-slider min="minPB" max="maxPB" model-min="userFilter.PB.min" model-max="userFilter.PB.max" decimal-places="5"></div>
+          </div>
+        </div>
+        <!-- END PRICE TO BOOK SLIDER -->
+
+        <!-- Debt To Equity -->
+        <div class="form-group">
+          <div class="col-xs-12">
+            <h4>Debt To Equity</h4>
+            <div><span>Min: {{userFilter.DebtToEquity.min}}</span> <span>Max: {{userFilter.DebtToEquity.max}}</span></div>
+            <div class="col-xs-12" range-slider min="minDebtToEquity" max="maxDebtToEquity" model-min="userFilter.DebtToEquity.min" model-max="userFilter.DebtToEquity.max" decimal-places="5"></div>
+          </div>
+        </div>
+        <!-- END Debt To Equity -->
+
+        <!-- EPS -->
+        <div class="form-group">
+          <div class="col-xs-12">
+            <h4>EPS </h4>
+            <div><span>Min: {{userFilter.EPS.min}}</span> <span>Max: {{userFilter.EPS.max}}</span></div>
+              <div class="col-xs-12" range-slider min="minEPS" max="maxEPS" model-min="userFilter.EPS.min" model-max="userFilter.EPS.max" decimal-places="5"></div>
+          </div>
+        </div>
+        <!-- END EPS -->
+
+        <!-- CashFlow -->
+        <div class="form-group">
+          <div class="col-xs-12">
+            <h4>Cash Flow </h4>
+            <div><span>Min: {{userFilter.CashFlow.min}}</span> <span>Max: {{userFilter.CashFlow.max}}</span></div>
+            <div class="col-xs-12" range-slider min="mincashFlow" max="maxcashFlow" model-min="userFilter.CashFlow.min" model-max="userFilter.CashFlow.max" decimal-places="5"></div>
+          </div>
+        </div>
+        <!-- END CashFlow -->
+        </form>
+        <!--END SEARCH FILTERS-->
+      </ul>
+    </div>
+</div> <!--Side Bar -->
+<div class="container customTable col-sm-10 col-sm-offset-2">
+  <div class="row">
+      <table class="table table-bordered table-striped" border="2" bgcolor="#efefef" id="stockTable">
+        <tr>
+          <th ng-click="sortType='CompanyName'; sortReverse = !sortReverse">
+              {{stats.th0}} <span ng-show="sortType == 'CompanyName' && !sortReverse"
+              class="fa fa-caret-down"></span>
+              <span ng-show="sortType == 'CompanyName' && sortReverse" class="fa fa-caret-up"></span>
+          </th>
+          <th ng-click="sortType='name'; sortReverse = !sortReverse">
+              {{stats.th1}} <span ng-show="sortType == 'name' && !sortReverse"
+              class="fa fa-caret-down"></span>
+              <span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
+          </th>
+          <th ng-click="sortType='sector'; sortReverse = !sortReverse">
+              {{stats.th2}} <span ng-show="sortType == 'sector' && !sortReverse"
+              class="fa fa-caret-down"></span>
+              <span ng-show="sortType == 'sector' && sortReverse" class="fa fa-caret-up"></span>
+          </th>
+          <th ng-click="sortType='priceEquity'; sortReverse = !sortReverse">
+            {{stats.th3}} <span ng-show="sortType == 'priceEquity' && !sortReverse"
+            class="fa fa-caret-down"></span>
+            <span ng-show="sortType == 'priceEquity' && sortReverse" class="fa fa-caret-up"></span>
+        </th>
+        <th ng-click="sortType='priceBook'; sortReverse = !sortReverse">
+          {{stats.th4}} <span ng-show="sortType == 'priceBook' && !sortReverse"
+          class="fa fa-caret-down"></span>
+          <span ng-show="sortType == 'priceBook' && sortReverse" class="fa fa-caret-up"></span>
+      </th>
+      <th ng-click="sortType='EPS'; sortReverse = !sortReverse">
+        {{stats.th5}} <span ng-show="sortType == 'EPS' && !sortReverse"
+        class="fa fa-caret-down"></span>
+        <span ng-show="sortType == 'EPS' && sortReverse" class="fa fa-caret-up"></span>
+    </th>
+    <th ng-click="sortType='debtEquity'; sortReverse = !sortReverse">
+      {{stats.th6}} <span ng-show="sortType == 'debtEquity' && !sortReverse"
+      class="fa fa-caret-down"></span>
+      <span ng-show="sortType == 'debtEquity' && sortReverse" class="fa fa-caret-up"></span>
+  </th>
+  <th ng-click="sortType='cashFlow'; sortReverse = !sortReverse">
+    {{stats.th7}} <span ng-show="sortType == 'cashFlow' && !sortReverse"
+    class="fa fa-caret-down"></span>
+    <span ng-show="sortType == 'cashFlow' && sortReverse" class="fa fa-caret-up"></span>
+</th>
+<th>Add To Favorites</th>
+</tr>
+</thead>
+
+<!-- <h4>Stocks Returned: {{stockData.length}}</h4> -->
+<!-- <h4>Current Page: {{currentPage}}</h4> -->
+{{testPE.pe}}
+<label>
+    <button ui-sref="app.favorites" type="button" class="btn btn-primary">Favorites</button></label>
+
+<h4>Items per page:</h4>
+<dir-pagination-controls></dir-pagination-controls>
+
+<form class="form-horizontal">
+  <div class="col-xs-1">
+  <span class="sr-only">Choosing stocks per page</span>
+  <input type="text" class="form-control" name="stocksPage" ng-model="pageSize">
+  </select>
+</div>
+</form>
+<tbody>
+  <tr dir-paginate="stock in stockData | orderBy:sortType:sortReverse | filter: userFilter.Industry.sector |
+  filter:search.company | filter: all | pbFilter: userFilter.PB.min:userFilter.PB.max |
+  peFilter: userFilter.PE.min:userFilter.PE.max | debtEquityFilter: userFilter.DebtToEquity.min:userFilter.DebtToEquity.max |
+  epsFilter: userFilter.EPS.min:userFilter.EPS.max | cashFlowFilter: userFilter.CashFlow.min:userFilter.CashFlow.max |
+  itemsPerPage: pageSize">
+
+    <td><a href="http://www.marketwatch.com/investing/stock/{{stock.name}}" target="__blank">{{stock.CompanyName}}</a></td>
+    <td><a href="http://www.marketwatch.com/investing/stock/{{stock.name}}" target="__blank">{{stock.name}}</a></td>
+    <td>{{stock.sector}}</td>
+    <td>{{stock.priceEquity}}</td>
+    <td>{{stock.priceBook}}</td>
+    <td>{{stock.EPS}}</td>
+    <td>{{stock.debtEquity}}</td>
+    <td>{{stock.cashFlow}}</td>
+    <td><i class="fa fa-plus-square" aria-hidden="true" ng-click="addFavorite(stock.id)"></i></td>
+  </tr>
+</tbody>
+</table>
+</div> <!--row-->
+</div> <!--container-->
